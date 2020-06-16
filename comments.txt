@@ -1,0 +1,61 @@
+++++++++++++++ 17 june 2020 +++++++++++++++++++++++++++
+1. check when tail is Nan kya wo sari flight cancelled hai
+because un sabke flight number tu hai and by checking 
+dep_time_blk ye bhi pta chalta hai ki there was a departure time for them.
+
+2. flight_df.count(axis='rows') instead of this hum kya kar sakte hai. we can check percentage of nulls in each col
+steps
+a. convert this count in dataframe 
+b. (count * 100)/ total rows. isse krogi to percentage mil jayegi
+
+
+3. finding stats for categorical plot.
+a. create list of cat column
+b. modify below code
+ds_cat_stats = pd.DataFrame(columns = ['column', 'values', 'values_count_incna', 'values_count_nona', 
+                                       'num_miss', 'pct_miss'])
+tmp = pd.DataFrame()
+
+for c in ds_cat.columns:
+    tmp['column'] = [c]
+    tmp['values'] = [ds_cat[c].unique()]
+    tmp['values_count_incna'] = len(list(ds_cat[c].unique()))
+    tmp['values_count_nona'] = int(ds_cat[c].nunique())
+    tmp['num_miss'] = ds_cat[c].isnull().sum()
+    tmp['pct_miss'] = (ds_cat[c].isnull().sum()/ len(ds_cat)).round(3)*100
+    ds_cat_stats = ds_cat_stats.append(tmp)
+    
+ds_cat_stats
+
+
+4. #flight takes off on the basis of tail_no in january month
+a. tumne sare column le liye bad choice
+try  groupby on Day_of_month. value count on cancelled with
+need a discussion.
+b. best is to show them with a graph 
+
+
+5. #flights take off in week
+sahi kiya hai but same as above because humko predict karna hai cancel flight 
+so better to show both cancelled and predicted 
+ques = which graph we can make to show them 
+
+
+6. #Problem 3: Flights taken off on the basis of unique carrier
+tumko kya samjh aaya iss result se
+write it in markdown below the cell
+
+
+7. for c in flight_df.columns:
+  un=flight_df[c].unique()
+  print(un)
+  
+  correct code:
+  make cat_list first
+  for c in cat_list:
+  un=flight_df[c].unique()
+  print("for col {} : unique values are \n {}".format(c,un))
+  
+  
+  
+  
